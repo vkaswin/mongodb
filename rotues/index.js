@@ -14,6 +14,10 @@ const {
   findAndFilterField,
   findByRegex,
   findByPageAndLimit,
+  findById,
+  findAndUpdateById,
+  findAndDeleteFieldById,
+  findAndRenameFieldById,
 } = require("../controllers");
 
 router.get("/findAll", findAll);
@@ -30,5 +34,9 @@ router.get("/findByTypeAndExist", findByTypeAndExist);
 router.get("/findAndFilterField", findAndFilterField);
 router.get("/findByRegex", findByRegex);
 router.get("/findByPageAndLimit", findByPageAndLimit);
+router.get("/findById/:id", findById);
+router.put("/findAndUpdateById/:id", findAndUpdateById);
+router.put("/findAndDeleteFieldById/:id", findAndDeleteFieldById);
+router.put("/findAndRenameFieldById/:id", findAndRenameFieldById);
 
 module.exports = router;

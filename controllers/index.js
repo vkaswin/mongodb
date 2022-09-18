@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const { Person } = require("../models");
 
 const findAll = async (req, res) => {
@@ -271,6 +272,101 @@ const findByPageAndLimit = async (req, res) => {
   }
 };
 
+const findById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id))
+      return res.status(400).send({ message: "Invalid Id" });
+
+    const data = await Person.findById(id);
+
+    if (!data) return res.status(400).send({ message: "Data Not Found" });
+
+    res.status(200).send({ message: "Success", data });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({ message: "Error" });
+  }
+};
+
+const findAndUpdateById = async (req, res) => {
+  try {
+    const {
+      params: { id },
+      body,
+    } = req;
+
+    if (!mongoose.Types.ObjectId.isValid(id))
+      return res.status(400).send({ message: "Invalid Id" });
+
+    const isExist = await Person.findById(id);
+
+    if (!isExist) return res.status(400).send({ message: "Data Not Found" });
+
+    // $set will replace the filed if exists or add the data if not exist
+    const data = await Person.findByIdAndUpdate(id, {
+      $set: body,
+    });
+
+    res.status(200).send({ message: "Success", data });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({ message: "Error" });
+  }
+};
+
+const findAndDeleteFieldById = async (req, res) => {
+  try {
+    const {
+      params: { id },
+    } = req;
+
+    if (!mongoose.Types.ObjectId.isValid(id))
+      return res.status(400).send({ message: "Invalid Id" });
+
+    const isExist = await Person.findById(id);
+
+    if (!isExist) return res.status(400).send({ message: "Data Not Found" });
+
+    // $unset will delete the field in the document
+    const data = await Person.findByIdAndUpdate(id, {
+      $unset: { height: 1 },
+    });
+
+    res.status(200).send({ message: "Success", data });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({ message: "Error" });
+  }
+};
+
+const findAndRenameFieldById = async (req, res) => {
+  try {
+    const {
+      params: { id },
+    } = req;
+
+    if (!mongoose.Types.ObjectId.isValid(id))
+      return res.status(400).send({ message: "Invalid Id" });
+
+    const isExist = await Person.findById(id);
+
+    if (!isExist) return res.status(400).send({ message: "Data Not Found" });
+
+    // $rename will rename the field in the document
+    // note the new field name shoud defined in the schema so that it will work
+    const data = await Person.findByIdAndUpdate(id, {
+      $rename: { height: "heights" },
+    });
+
+    res.status(200).send({ message: "Success", data });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({ message: "Error" });
+  }
+};
+
 module.exports = {
   findAll,
   findByExactMatch,
@@ -286,4 +382,8 @@ module.exports = {
   findAndFilterField,
   findByRegex,
   findByPageAndLimit,
+  findById,
+  findAndUpdateById,
+  findAndDeleteFieldById,
+  findAndRenameFieldById,
 };
