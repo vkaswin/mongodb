@@ -60,7 +60,12 @@ const personSchema = mongoose.Schema(
       },
       _id: false,
     },
-    tags: [String],
+    tags: { type: [String], default: [] },
+    friends: {
+      type: [Object],
+      default: [],
+    },
+    height: String,
   },
   { timestamps: true, collection: "persons" }
 );
