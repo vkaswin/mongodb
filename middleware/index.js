@@ -4,6 +4,7 @@ const { Person } = require("../models");
 const checkDataExist = async (req, res, next) => {
   try {
     const id = req.params.id;
+    console.log(req.params);
 
     if (!mongoose.Types.ObjectId.isValid(id))
       return res.status(400).send({ message: "Invalid Id" });

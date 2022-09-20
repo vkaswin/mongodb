@@ -1,4 +1,3 @@
-const mongoose = require("mongoose");
 const { Person } = require("../models");
 
 const updateById = async (req, res) => {
@@ -125,7 +124,7 @@ const removeElementInArrayUsingPull = async (req, res) => {
   try {
     // removes all the elements that matches the query
     const data = await Person.findByIdAndUpdate(req.params.id, {
-      $pull: { marks: { $gte: 20 } },
+      $pull: { marks: { $gte: 30, $lt: 40 } },
     });
 
     res.status(200).send({ message: "Success", data });
@@ -139,8 +138,27 @@ const removeElementInArrayUsingPullAll = async (req, res) => {
   try {
     // pass an array in $pullAll method and it will remove all the elements in the array
     const data = await Person.findByIdAndUpdate(req.params.id, {
-      $addToSet: { tags: { $each: ["Aswin", "Kumar"] } },
+      $pullAll: { tags: ["Loreum", "Ispum"] },
     });
+
+    res.status(200).send({ message: "Success", data });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({ message: "Error" });
+  }
+};
+
+const updateArrayUsingPositionalOperator = async (req, res) => {
+  try {
+    const data = await Person.updateOne(
+      {
+        _id: req.params.id,
+        friends: { $elemMatch: { name: "Aswin" } },
+      },
+      {
+        "friends.$.name": "Thor",
+      }
+    );
 
     res.status(200).send({ message: "Success", data });
   } catch (error) {
@@ -160,4 +178,5 @@ module.exports = {
   removeElementInArrayUsingPop,
   removeElementInArrayUsingPull,
   removeElementInArrayUsingPullAll,
+  updateArrayUsingPositionalOperator,
 };

@@ -1,4 +1,4 @@
-const router = require("express").Router({ mergeParams: true });
+const router = require("express").Router();
 const {
   updateById,
   deleteFieldById,
@@ -10,11 +10,12 @@ const {
   removeElementInArrayUsingPop,
   removeElementInArrayUsingPull,
   removeElementInArrayUsingPullAll,
+  updateArrayUsingPositionalOperator,
 } = require("../controllers/update");
 const { checkDataExist } = require("../middleware");
 
+router.param("id", checkDataExist);
 router.put("/many", updateMany);
-router.use(checkDataExist);
 router.put("/:id/id", updateById);
 router.put("/:id/deleteFieldById", deleteFieldById);
 router.put("/:id/renameFieldById", renameFieldById);
@@ -29,6 +30,10 @@ router.put("/:id/removeElementInArrayUsingPull", removeElementInArrayUsingPull);
 router.put(
   "/:id/removeElementInArrayUsingPullAll",
   removeElementInArrayUsingPullAll
+);
+router.put(
+  "/:id/updateArrayUsingPositionalOperator",
+  updateArrayUsingPositionalOperator
 );
 
 module.exports = router;
