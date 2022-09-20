@@ -66,6 +66,7 @@ const personSchema = mongoose.Schema(
       default: [],
     },
     height: String,
+    marks: [Number],
   },
   { timestamps: true, collection: "persons" }
 );

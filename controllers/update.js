@@ -91,6 +91,64 @@ const updateMany = async (req, res) => {
   }
 };
 
+const addElementInArrayUsingAddToSet = async (req, res) => {
+  try {
+    // add element in an array
+    // $addToSet will push an element in an array if the element doesn't exists so will no add duplicate elements in an array
+    const data = await Person.findByIdAndUpdate(req.params.id, {
+      $addToSet: { tags: { $each: ["Aswin", "Kumar"] } },
+    });
+
+    res.status(200).send({ message: "Success", data });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({ message: "Error" });
+  }
+};
+
+const removeElementInArrayUsingPop = async (req, res) => {
+  try {
+    // remove array element in an array
+    // if we pass 1 it will remove last element in an array and if we pass -1 it will remove first element in an array
+    const data = await Person.findByIdAndUpdate(req.params.id, {
+      $pop: { tags: 1 },
+    });
+
+    res.status(200).send({ message: "Success", data });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({ message: "Error" });
+  }
+};
+
+const removeElementInArrayUsingPull = async (req, res) => {
+  try {
+    // removes all the elements that matches the query
+    const data = await Person.findByIdAndUpdate(req.params.id, {
+      $pull: { marks: { $gte: 20 } },
+    });
+
+    res.status(200).send({ message: "Success", data });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({ message: "Error" });
+  }
+};
+
+const removeElementInArrayUsingPullAll = async (req, res) => {
+  try {
+    // pass an array in $pullAll method and it will remove all the elements in the array
+    const data = await Person.findByIdAndUpdate(req.params.id, {
+      $addToSet: { tags: { $each: ["Aswin", "Kumar"] } },
+    });
+
+    res.status(200).send({ message: "Success", data });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({ message: "Error" });
+  }
+};
+
 module.exports = {
   updateById,
   deleteFieldById,
@@ -98,4 +156,8 @@ module.exports = {
   addElementInArray,
   addMultipleElementsInArray,
   updateMany,
+  addElementInArrayUsingAddToSet,
+  removeElementInArrayUsingPop,
+  removeElementInArrayUsingPull,
+  removeElementInArrayUsingPullAll,
 };
