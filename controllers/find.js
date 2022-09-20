@@ -173,6 +173,10 @@ const findByArrayElementMatch = async (req, res) => {
   try {
     // returns all the documents if an atlease one sub document in a array matches all the conditions
     // $elementMatch will be used to query an nested array
+    // query will be run on the individual nested array
+    // if we use {"friends.age" : 20, "friends.gender" : "male"} here it will run independently means
+    // if the gender matches in the first element and the age matched in another element it will still returns the document
+    // but in case of $elemMatch if the element matches all the conditions then only it will return the document
     const list = await Person.find({
       friends: { $elemMatch: { age: { $lte: 20 }, gender: { $eq: "male" } } },
     });
