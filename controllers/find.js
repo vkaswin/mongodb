@@ -10,7 +10,7 @@ const findAll = async (req, res) => {
     res.status(200).send({ message: "Success", data: { total, list } });
   } catch (error) {
     console.log(error);
-    req.status(400).send({ message: "Error" });
+    res.status(400).send({ message: "Error" });
   }
 };
 
@@ -24,7 +24,7 @@ const findByExactMatch = async (req, res) => {
     res.status(200).send({ message: "Success", data: { total, list } });
   } catch (error) {
     console.log(error);
-    req.status(400).send({ message: "Error" });
+    res.status(400).send({ message: "Error" });
   }
 };
 
@@ -39,7 +39,7 @@ const findByExactMatchInNestedObject = async (req, res) => {
     res.status(200).send({ message: "Success", data: { total, list } });
   } catch (error) {
     console.log(error);
-    req.status(400).send({ message: "Error" });
+    res.status(400).send({ message: "Error" });
   }
 };
 
@@ -56,7 +56,7 @@ const findByMultipleCondition = async (req, res) => {
     res.status(200).send({ message: "Success", data: { total, list } });
   } catch (error) {
     console.log(error);
-    req.status(400).send({ message: "Error" });
+    res.status(400).send({ message: "Error" });
   }
 };
 
