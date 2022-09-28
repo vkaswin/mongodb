@@ -180,13 +180,114 @@ const facet = async (req, res) => {
     const list = await Person.aggregate([
       {
         $facet: {
-          eyeColorBlue: [{ $match: { eyeColor: "blue", isActive: true } }],
-          eyeColorByBrown: [{ $match: { eyeColor: "brown", isActive: true } }],
-          eyeColorByGreen: [{ $match: { eyeColor: "green", isActive: true } }],
+          eyeColorBlue: [
+            { $match: { eyeColor: "blue", isActive: true } },
+            { $project: { favoriteFruit: 1 } },
+          ],
+          eyeColorByBrown: [
+            { $match: { eyeColor: "brown", isActive: true } },
+            { $project: { age: 1 } },
+          ],
+          eyeColorByGreen: [
+            { $match: { eyeColor: "green", isActive: true } },
+            { $project: { tags: 1 } },
+          ],
         },
       },
     ]);
     res.status(200).send({ message: "Success", list });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({ message: "Error" });
+  }
+};
+
+const skipAndLimit = async (req, res) => {
+  // $limit it limits the number of documents passed to the next stage in the pipeline
+  // $skip it skips the number of documents passed to the next stage in the pipeline
+  try {
+    const { page = 1, size = 10 } = req.query;
+    const list = await Person.aggregate([
+      { $match: { age: { $lte: 22 } } },
+      { $sort: { name: 1 } },
+      { $skip: (+page - 1) * +size },
+      {
+        $limit: +size,
+      },
+      {
+        $project: {
+          name: 1,
+        },
+      },
+    ]);
+    const [{ total }] = await Person.aggregate([
+      { $match: { age: { $lte: 22 } } },
+      { $count: "total" },
+    ]);
+    const totalPages = Math.ceil(total / +size);
+    res.status(200).send({
+      message: "Success",
+      data: { pageMeta: { page, total, totalPages }, list },
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({ message: "Error" });
+  }
+};
+
+const unset = async (req, res) => {
+  // $unset it will remove or excludes the fields in the document
+  try {
+    const list = await Person.aggregate([
+      { $match: { age: { $lte: 22 } } },
+      { $sort: { name: 1 } },
+      { $unset: "isActive" },
+      { $unset: ["friends.id", "company.location.address", "tags"] },
+    ]);
+    const total = list.length;
+    res.status(200).send({
+      message: "Success",
+      data: { total, list },
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({ message: "Error" });
+  }
+};
+
+const set = async (req, res) => {
+  // $set similar to $addFields
+  try {
+    const list = await Person.aggregate([
+      { $match: { age: { $lte: 22 } } },
+      { $sort: { name: 1 } },
+      {
+        $set: {
+          randomAge: {
+            $round: [{ $sum: [{ $multiply: [{ $rand: {} }, "$age"] }, 10] }, 2],
+          },
+        },
+      },
+      { $project: { name: 1, randomAge: 1 } },
+    ]);
+    const total = list.length;
+    res.status(200).send({
+      message: "Success",
+      data: { total, list },
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({ message: "Error" });
+  }
+};
+
+const sortByCount = async (req, res) => {
+  try {
+    const list = await Person.aggregate([{ $sortByCount: "$eyeColor" }]);
+    res.status(200).send({
+      message: "Success",
+      list,
+    });
   } catch (error) {
     console.log(error);
     res.status(400).send({ message: "Error" });
@@ -202,4 +303,8 @@ module.exports = {
   count,
   addFields,
   facet,
+  skipAndLimit,
+  unset,
+  set,
+  sortByCount,
 };

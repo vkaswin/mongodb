@@ -1,3 +1,18 @@
+
+$match
+
+$project
+
+$group
+
+$sort
+
+$out
+
+$merge
+
+$unwind
+
 $addFileds - add new fields in an document
 { $addFields: { <newField>: <expression>, ... } }
 
@@ -7,19 +22,21 @@ $facet - used to process multiple aggregation and retuns the data in a specified
 $count - count total number of document and retuns the value in a specified key
 { $count : <outputField> }
 
-$fill
+$limit - it limits the number of documents passed to the next stage in the pipeline
+{ $limit: <positive 64-bit integer> }
 
-$group
+$skip - it skips the number of documents passed to the next stage in the pipeline
+{ $skip: <positive 64-bit integer> }
 
-$limit
+$unset - remove or excludes the fields in the document
+{ $unset: "<field>" }
+{ $unset: [ "<field1>", "<field2>", ... ] }
 
-$match
+$set - similar to $addFields stage
+{ $set: { <newField>: <expression>, ... } }
 
-$merge
-
-$out
-
-$project
+$sortByCount - groups incoming documents based on the value of a specified expression, then computes the count of documents in each distinct group
+{ $sortByCount:  <expression> }
 
 $redact
 
@@ -28,15 +45,3 @@ $replaceRoot
 $replaceWith
 
 $search
-
-$set
-
-$skip
-
-$sort
-
-$sortByCount
-
-$unset
-
-$unwind
