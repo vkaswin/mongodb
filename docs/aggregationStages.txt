@@ -1,0 +1,42 @@
+$addFileds - add new fields in an document
+{ $addFields: { <newField>: <expression>, ... } }
+
+$facet - used to process multiple aggregation and retuns the data in a specified key
+{ $facet: { <outputField1>: [ <stage1>, <stage2>, ... ], <outputField2>: [ <stage1>, <stage2>, ... ], ... } }
+
+$count - count total number of document and retuns the value in a specified key
+{ $count : <outputField> }
+
+$fill
+
+$group
+
+$limit
+
+$match
+
+$merge
+
+$out
+
+$project
+
+$redact
+
+$replaceRoot
+
+$replaceWith
+
+$search
+
+$set
+
+$skip
+
+$sort
+
+$sortByCount
+
+$unset
+
+$unwind

@@ -1,0 +1,117 @@
+Comparison Query Operators :
+
+$eq - return document if the value is equal to the specified value
+{ <field>: { $eq: <value> } }
+
+$ne - return document if the value is not equal to the specified value
+
+$gt - return document if the value is greater than the specified value
+{ field: { $gt: value } }
+
+$gte - return document if the value is greater than or equal to the specified value
+{ field: { $gte: value } }
+
+$lt - return document if the value is less than the specified value
+{ field: { $lt: value } }
+
+$lte - return document if the value is less than or equal to the specified value
+{ field: { $lte: value } }
+
+$in - return document if the value is exist in the specified array
+{ field: { $in: [<value1>, <value2>, ... <valueN> ] } }
+
+$nin - return document if the value is not exist in the specified array
+{ field: { $nin: [ <value1>, <value2> ... <valueN> ] } }
+
+Logical Query Operators :
+
+$and - return document that matches all the conditions
+{ $and: [ { <expression1> }, { <expression2> } , ... , { <expressionN> } ] }
+
+$not - return the document that does not match the conditons (return the document even the field not exists)
+{ field: { $not: { <operator-expression> } } }
+
+$nor - return document if all the condition are not matches (return the even the filed not exists)
+{ $nor: [ { <expression1> }, { <expression2> }, ...  { <expressionN> } ] }
+
+$or - return document if any one of the condition matches
+
+Element Query Operators :
+
+$exists - return document based on the filed exist or not
+{ field: { $exists: <boolean> } }
+
+$type - return document if the specified value is an instance of specified BSON type
+{ field: { $type: <BSON type> } }
+
+BSON Types :
+string: 2,
+object: 3,
+array: 4,
+boolean: 8,
+int: 16,
+long: 18,
+double: 1,
+date: 9,
+objectId: 7,
+
+Evaluation Query Operators :
+
+$expr - Allows use of aggregation expressions within the query language
+{ $expr: { <expression> } }
+
+$mod - return document if the modulo operation result is equal to the remainder
+{ field: { $mod: [ divisor, remainder ] } }
+
+$regex - return document if the value matches the regular expression
+{ <field>: { $regex: /pattern/, $options: '<options>' } }
+{ <field>: { $regex: 'pattern', $options: '<options>' } }
+{ <field>: { $regex: /pattern/<options> } }
+
+$text - Performs text search
+{
+  $text:
+    {
+      $search: <string>,
+      $language: <string>,
+      $caseSensitive: <boolean>,
+      $diacriticSensitive: <boolean>
+    }
+}
+
+$where - return document based on the return value of the JavaScript Function (true / false)
+{ $where: <string|JavaScript Code> } use this keyword to access the each document
+
+Array Query Operators :
+
+$all - return document if the array conditions all the values exists in the specified array
+{ <field>: { $all: [ <value1> , <value2> ... ] } }
+
+$elemMatch - return document if atleast one array element matches all the conditions
+{ <field>: { $elemMatch: { <query1>, <query2>, ... } } }
+
+$size - return document if the length of an array is a specified value
+
+Projection Operators : [used to filtering values]
+
+$ - return the first array element that matches the condition on the array
+db.collection.find( { <query>, { "<array>.$": 1 } )
+
+$elemMatch - return the first array element that matches the condition on the array
+db.collection.find( <query>, { filed: { $elemMatch : { score: { $gt: 5 } } }  } )
+
+
+$slice - return only certain array elements based on the specified number
+db.collection.find( <query>, { <arrayField>: { $slice: <number> } } );
+Specify a positive number n to return the first n elements.
+Specify a negative number n to return the last n elements.
+
+db.collection.find( <query>, { <arrayField>: { $slice: [  <number to skip>, <number to return> ] }  );
+Specify a positive number n to skip n elements from the start of the array; i.e. 0th index position. Based on a zero-based array index, 1 indicates the starting position of the 2nd element, etc. If n is greater than the number of array elements, the query returns an empty array for the <arrayField>.Specify a positive number n to skip n elements from the start of the array; i.e. 0th index position. Based on a zero-based array index, 1 indicates the starting position of the 2nd element, etc. If n is greater than the number of array elements, the query returns an empty array for the <arrayField>.
+Specify a negative number n to skip backward n elements from the start of the array; i.e. 0th index position Based on a zero-based array index (i.e. the first element is at index 0), -1 indicates the starting position of the last element, etc. If the absolute value of the negative number is greater than the number of array elements, the starting position is the start of the array.
+Specify a negative number n to skip backward n elements from the start of the array; i.e. 0th index position Based on a zero-based array index (i.e. the first element is at index 0), -1 indicates the starting position of the last element, etc. If the absolute value of the negative number is greater than the number of array elements, the starting position is the start of the array.
+
+Miscellaneous Query Operators :
+
+$rand - used to generate a random number between 0 and 1
+{ $rand: {} }
