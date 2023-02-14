@@ -1,5 +1,5 @@
-const router = require("express").Router();
-const {
+import { Router } from "express";
+import {
   match,
   sort,
   group,
@@ -12,7 +12,9 @@ const {
   unset,
   set,
   sortByCount,
-} = require("../controllers/aggregateStages");
+} from "../controllers/aggregateStages";
+
+const router = Router();
 
 router.get("/match", match);
 router.get("/sort", sort);
@@ -27,4 +29,4 @@ router.get("/unset", unset);
 router.get("/set", set);
 router.get("/sortByCount", sortByCount);
 
-module.exports = router;
+export default router;

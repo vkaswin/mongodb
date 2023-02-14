@@ -1,5 +1,5 @@
-const router = require("express").Router();
-const {
+import { Router } from "express";
+import {
   findAll,
   findByExactMatch,
   findByExactMatchInNestedObject,
@@ -15,7 +15,9 @@ const {
   findByRegex,
   findByPageAndLimit,
   findById,
-} = require("../controllers/find");
+} from "../controllers/find";
+
+const router = Router();
 
 router.get("/all", findAll);
 router.get("/exactMatch", findByExactMatch);
@@ -33,4 +35,4 @@ router.get("/regex", findByRegex);
 router.get("/pageAndLimit", findByPageAndLimit);
 router.get("/:id", findById);
 
-module.exports = router;
+export default Router;

@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-const personSchema = mongoose.Schema(
+const personSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -71,8 +71,4 @@ const personSchema = mongoose.Schema(
   { timestamps: true, collection: "persons" }
 );
 
-const Person = mongoose.model("Person", personSchema);
-
-module.exports = {
-  Person,
-};
+export default mongoose.model("Person", personSchema);

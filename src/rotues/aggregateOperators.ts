@@ -1,14 +1,16 @@
-const router = require("express").Router();
-const {
+import { Router } from "express";
+import {
   accumulators,
   unaryOperator,
   out,
   filter,
-} = require("../controllers/aggregateOperators");
+} from "../controllers/aggregateOperators";
+
+const router = Router();
 
 router.get("/accumulators", accumulators);
 router.get("/unaryOperator", unaryOperator);
 router.get("/out", out);
 router.get("/filter", filter);
 
-module.exports = router;
+export default router;

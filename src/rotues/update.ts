@@ -1,5 +1,5 @@
-const router = require("express").Router();
-const {
+import { Router } from "express";
+import {
   updateById,
   deleteFieldById,
   renameFieldById,
@@ -11,10 +11,11 @@ const {
   removeElementInArrayUsingPull,
   removeElementInArrayUsingPullAll,
   updateArrayUsingPositionalOperator,
-} = require("../controllers/update");
-const { checkDataExist } = require("../middleware");
+} from "../controllers/update";
 
-router.param("id", checkDataExist);
+const router = Router();
+
+// router.param("id", checkDataExist);
 router.put("/many", updateMany);
 router.put("/:id/id", updateById);
 router.put("/:id/deleteFieldById", deleteFieldById);
@@ -36,4 +37,4 @@ router.put(
   updateArrayUsingPositionalOperator
 );
 
-module.exports = router;
+export default router;
