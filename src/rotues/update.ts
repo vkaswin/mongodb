@@ -15,7 +15,6 @@ import {
 
 const router = Router();
 
-// router.param("id", checkDataExist);
 router.put("/many", updateMany);
 router.put("/:id/id", updateById);
 router.put("/:id/deleteFieldById", deleteFieldById);
