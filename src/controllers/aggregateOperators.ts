@@ -1,5 +1,5 @@
 import Person from "../models/person";
-import { asyncHandler } from "../../utils";
+import { asyncHandler } from "../utils";
 
 const accumulators = asyncHandler(async (req, res) => {
   // $sum will add all the values in the group and return the total
