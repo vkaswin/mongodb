@@ -15,7 +15,6 @@ const findByExactMatch = asyncHandler(async (req, res) => {
   const list = await Person.find({
     name: "Marie Sutton",
   });
-  console.log(list);
   const total = list.length;
   res.status(200).send({ message: "Success", data: { total, list } });
 });
@@ -95,7 +94,6 @@ const findByNorOperator = asyncHandler(async (req, res) => {
   //     { isActive: false },
   //     { "company.location.country": { $ } },
   //   ],
-  console.log(list);
   const total = list.length;
   res.status(200).send({ message: "Success", data: { total, list } });
 });

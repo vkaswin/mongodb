@@ -9,7 +9,6 @@ const cors: CORS = (options) => (req, res, next) => {
 
   let origin = req.headers.origin;
   let method = req.method;
-  console.log(options, method, origin);
 
   if (origin && allowOrigins.includes(origin)) {
     res.setHeader("Access-Control-Allow-Origin", origin);
