@@ -35,4 +35,4 @@ router.get("/regex", findByRegex);
 router.get("/pageAndLimit", findByPageAndLimit);
 router.get("/:id", findById);
 
-export default Router;
+export default router;

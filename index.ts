@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import connect from "./src/database/config";
 import router from "./src/rotues";
+import cors from "./src/middleware/cors";
 
 dotenv.config();
 
@@ -9,6 +10,7 @@ const port = process.env.PORT;
 const app = express();
 
 app
+  .use(cors({ allowOrigins: ["https://stackoverflow.com"] }))
   .use(express.json())
   .use(express.urlencoded({ extended: false }))
   .use(router);

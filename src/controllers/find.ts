@@ -13,8 +13,9 @@ const findAll = asyncHandler(async (req, res) => {
 const findByExactMatch = asyncHandler(async (req, res) => {
   // returns the all the document matches name
   const list = await Person.find({
-    name: "Francine Glenn",
+    name: "Marie Sutton",
   });
+  console.log(list);
   const total = list.length;
   res.status(200).send({ message: "Success", data: { total, list } });
 });
