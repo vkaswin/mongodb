@@ -10,7 +10,7 @@ const port = process.env.PORT;
 const app = express();
 
 app
-  .use(cors({ allowOrigins: ["https://stackoverflow.com"] }))
+  .use(cors())
   .use(express.json())
   .use(express.urlencoded({ extended: false }))
   .use(router);
