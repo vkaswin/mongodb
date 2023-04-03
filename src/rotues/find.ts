@@ -14,7 +14,6 @@ import {
   findAndFilterField,
   findByRegex,
   findByPageAndLimit,
-  findById,
 } from "../controllers/find";
 
 const router = Router();
@@ -33,6 +32,5 @@ router.get("/typeAndExist", findByTypeAndExist);
 router.get("/filterField", findAndFilterField);
 router.get("/regex", findByRegex);
 router.get("/pageAndLimit", findByPageAndLimit);
-router.get("/:id", findById);
 
 export default router;
