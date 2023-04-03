@@ -1,6 +1,6 @@
-import Person from "../models/person";
 import mongoose from "mongoose";
-import { asyncHandler } from "../utils";
+import Person from "../models/person";
+import { asyncHandler } from "../utils/asyncHandler";
 
 export const match = asyncHandler(async (req, res) => {
   // $match : This resembles queries, where the list of documents is narrowed down through a set of criteria

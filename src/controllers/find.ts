@@ -1,6 +1,6 @@
-import Person from "../models/person";
 import mongoose from "mongoose";
-import { asyncHandler } from "../utils";
+import Person from "../models/person";
+import { asyncHandler } from "../utils/asyncHandler";
 
 export const findAll = asyncHandler(async (req, res) => {
   // empyt object in find method returns all the documents in a collection

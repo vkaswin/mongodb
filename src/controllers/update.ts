@@ -1,5 +1,5 @@
 import Person from "../models/person";
-import { asyncHandler } from "../utils";
+import { asyncHandler } from "../utils/asyncHandler";
 
 export const updateById = asyncHandler(async (req, res) => {
   // $set will replace the filed if exists or add the data if not exist
