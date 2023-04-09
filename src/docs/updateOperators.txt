@@ -1,0 +1,30 @@
+Field Update Operators :
+
+$currentDate - sets the currentDate (Date or Timestamp) as a value for the field
+{ $currentDate: { <field1>: <typeSpecification1>, ... } }
+type - "timestamp" | "date"
+
+$inc - increments a field by a specified value and it accepts both positive and negative values
+{ $inc: { <field1>: <amount1>, <field2>: <amount2>, ... } }
+
+$min - updates the value of the field to a specified value if the specified value is less than the current value of the field
+{ $min: { <field1>: <value1>, ... } }
+
+$max - updates the value of the field to a specified value if the specified value is greater than the current value of the field
+{ $max: { <field1>: <value1>, ... } }
+
+$mul - multiply the value of a field by a number
+{ $mul: { <field1>: <number1>, ... } }
+
+$rename - updates the name of a field
+{$rename: { <field1>: <newName1>, <field2>: <newName2>, ... } }
+
+$set - replaces the value of a field with the specified value
+{ $set: { <field1>: <value1>, ... } }
+
+$unset - deletes a particular field (if we delete the array index this will set the value as null)
+{ $unset: { <field1>: "", ... } }
+
+$setOnInsert
+
+Array Update Operators

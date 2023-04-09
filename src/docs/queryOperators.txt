@@ -35,10 +35,11 @@ $nor - return document if all the condition are not matches (return the even the
 { $nor: [ { <expression1> }, { <expression2> }, ...  { <expressionN> } ] }
 
 $or - return document if any one of the condition matches
+{ $or: [ { <expression1> }, { <expression2> }, ... , { <expressionN> } ] }
 
 Element Query Operators :
 
-$exists - return document based on the filed exist or not
+$exists - return document based on the field exist or not
 { field: { $exists: <boolean> } }
 
 $type - return document if the specified value is an instance of specified BSON type
@@ -57,7 +58,7 @@ objectId: 7,
 
 Evaluation Query Operators :
 
-$expr - Allows use of aggregation expressions within the query language
+$expr - Allows use of aggregation expressions (eg : $add, $ceil, $gt, $filter etc...) within the query language
 { $expr: { <expression> } }
 
 $mod - return document if the modulo operation result is equal to the remainder
@@ -91,14 +92,15 @@ $elemMatch - return document if atleast one array element matches all the condit
 { <field>: { $elemMatch: { <query1>, <query2>, ... } } }
 
 $size - return document if the length of an array is a specified value
+db.collection.find( { field: { $size: 2 } } );
 
 Projection Operators : [used to filtering values]
 
-$ - return the first array element that matches the condition on the array
-db.collection.find( { <query>, { "<array>.$": 1 } )
+$ - return the first array element that matches the condition on the array (condition used in elemMatch query)
+db.collection.find( { <query>, { "<array>.$": 1 } } )
 
 $elemMatch - return the first array element that matches the condition on the array
-db.collection.find( <query>, { filed: { $elemMatch : { score: { $gt: 5 } } }  } )
+db.collection.find( <query>, { field: { $elemMatch : { score: { $gt: 5 } } }  } )
 
 
 $slice - return only certain array elements based on the specified number
@@ -106,12 +108,15 @@ db.collection.find( <query>, { <arrayField>: { $slice: <number> } } );
 Specify a positive number n to return the first n elements.
 Specify a negative number n to return the last n elements.
 
-db.collection.find( <query>, { <arrayField>: { $slice: [  <number to skip>, <number to return> ] }  );
+db.collection.find( <query>, { <arrayField>: { $slice: [  <number to skip>, <number to return> ] } } );
 Specify a positive number n to skip n elements from the start of the array; i.e. 0th index position. Based on a zero-based array index, 1 indicates the starting position of the 2nd element, etc. If n is greater than the number of array elements, the query returns an empty array for the <arrayField>.Specify a positive number n to skip n elements from the start of the array; i.e. 0th index position. Based on a zero-based array index, 1 indicates the starting position of the 2nd element, etc. If n is greater than the number of array elements, the query returns an empty array for the <arrayField>.
 Specify a negative number n to skip backward n elements from the start of the array; i.e. 0th index position Based on a zero-based array index (i.e. the first element is at index 0), -1 indicates the starting position of the last element, etc. If the absolute value of the negative number is greater than the number of array elements, the starting position is the start of the array.
 Specify a negative number n to skip backward n elements from the start of the array; i.e. 0th index position Based on a zero-based array index (i.e. the first element is at index 0), -1 indicates the starting position of the last element, etc. If the absolute value of the negative number is greater than the number of array elements, the starting position is the start of the array.
 
 Miscellaneous Query Operators :
+
+$comment - used to add comments to a query and it has no impact on the query execution
+db.collection.find( { <query>, $comment: <comment> } )
 
 $rand - used to generate a random number between 0 and 1
 { $rand: {} }
