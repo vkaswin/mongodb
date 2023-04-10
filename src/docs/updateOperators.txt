@@ -27,4 +27,11 @@ $unset - deletes a particular field (if we delete the array index this will set 
 
 $setOnInsert
 
-Array Update Operators
+Array Update Operators :
+
+$ (update) - updates the first array element that satisfies the condition
+Cannot use $ (positional operator) when we use $ne, $not, or $nin operators in this case use $elemMatch in order to use negation operators
+{ "<array>.$" : value }
+
+$[] - updates all the elements in the specified array field
+{ <update operator>: { "<array>.$[]" : value } }

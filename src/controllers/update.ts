@@ -116,3 +116,16 @@ export const updateArrayUsingPositionalOperator = asyncHandler(
     res.status(200).send({ message: "Success", data });
   }
 );
+
+export const updateAllElementsInArray = asyncHandler(async (req, res) => {
+  let data = await Person.updateOne(
+    {
+      _id: req.params.id,
+    },
+    {
+      "friends.$[].name": "Thor",
+    }
+  );
+
+  res.status(200).send({ message: "Success", data });
+});
